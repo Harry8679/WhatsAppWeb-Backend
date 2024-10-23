@@ -6,8 +6,8 @@
   "author": "Harry MacCode <emarh.harry.code@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node ./src/index.js",
-    "dev": "nodemon ./src/index.js"
+    "start": "nodemon ./src/index.js",
+    "dev": "NODE_ENV=development nodemon ./src/index.js"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"
