@@ -4,5 +4,8 @@
   "description": "WhatsAppWeb",
   "main": "index.js",
   "author": "Harry MacCode <emarh.harry.code@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./src/index.js"
+  }
 }
