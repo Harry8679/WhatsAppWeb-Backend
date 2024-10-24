@@ -1,6 +1,7 @@
 const dotenv = require('dotenv');
 const app = require('./app');
 const logger = require('./config/logger.config');
+const mongoose = require('mongoose');
 
 dotenv.config();
 
@@ -8,6 +9,15 @@ dotenv.config();
 const { MONGODB_URI } = process.env;
 const port = process.env.PORT || 8081;
 console.log(process.env.NODE_ENV);
+
+// Exit on mongodb errors
+mongoose.connection.on('error', (err) => {
+    logger.error(`MongoDB Connection error: ${err}`);
+    process.exit(1);
+});
+
+// mongodb connection
+mongoose.connect(MONGODB_URI, {}).then(() => logger.info('Connected to Mongo DB ...'));
 
 let server;
 // app.listen(port, () => console.log(`Server is running at ${port}`));
