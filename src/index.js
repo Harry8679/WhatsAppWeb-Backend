@@ -16,6 +16,11 @@ mongoose.connection.on('error', (err) => {
     process.exit(1);
 });
 
+// MongoDB debug mode
+if (process.env.NODE_ENV !== 'production') {
+    mongoose.set('debug', true);
+};
+
 // mongodb connection
 mongoose.connect(MONGODB_URI, {}).then(() => logger.info('Connected to Mongo DB ...'));
 
