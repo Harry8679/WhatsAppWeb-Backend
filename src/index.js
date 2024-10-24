@@ -4,6 +4,8 @@ const logger = require('./config/logger.config');
 
 dotenv.config();
 
+// Env variables
+const { MONGODB_URI } = process.env;
 const port = process.env.PORT || 8081;
 console.log(process.env.NODE_ENV);
 
