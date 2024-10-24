@@ -1,8 +1,9 @@
 const express = require('express');
-const authRoutes = require('./auth.route');
 
 const router = express.Router();
 
-router.use('/auth', authRoutes);
+router.route('/register').post((req, res) => {
+    res.send('Hello from Register!');
+});
 
 module.exports = router;

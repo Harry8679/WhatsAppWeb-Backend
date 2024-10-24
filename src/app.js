@@ -8,6 +8,7 @@ const compression = require('compression');
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
 const createHttpError = require('http-errors');
+const routes = require('./routes/index');
 
 dotenv.config();
 
@@ -43,6 +44,9 @@ app.use(fileUpload({
 
 // cors
 app.use(cors());
+
+// Routes
+app.use('/api/v1', routes);
 
 app.get('/', (req, res) => {
     // res.send('Hello from Server API');
