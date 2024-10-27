@@ -1,7 +1,10 @@
+const { createUser } = require("../services/auth.service");
+
 const register = async (req, res, next) => {
     try {
         const { name, email, picture, status, password } = req.body;
-        console.log(name, email, picture, status, password);
+        // console.log(name, email, picture, status, password);
+        const newUser = createUser({ name, email, picture, status, password });
     } catch (error) {
         next(error);
     }
