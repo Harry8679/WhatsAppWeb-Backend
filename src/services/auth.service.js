@@ -30,6 +30,11 @@ const createUser = async(userData) => {
     if (checkDb) {
         throw createHttpError.Conflict('Please try again with a different email address, this email already exists.');
     }
+
+    // Check password length
+    if (!validator.isLength(password, { min:6, max: 128 })) {
+        throw createHttpError.BadRequest('Please make sure your password is between 6 and 128 characters long.');
+    }
 }
 
 module.exports = createUser;
