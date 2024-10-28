@@ -7,4 +7,4 @@ const generateToken = async (payload, expiresIn, secret) => {
     return token;
 };
 
-module.exports = generateToken;
+module.exports = { generateToken };
