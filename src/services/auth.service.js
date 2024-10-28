@@ -1,6 +1,6 @@
 const createHttpError  = require('http-errors');
 
-export const createUser = async(userData) => {
+const createUser = async(userData) => {
     const { name, email, picture, status, password } = userData;
 
     // Check if fields are empty
@@ -8,3 +8,5 @@ export const createUser = async(userData) => {
         throw createHttpError.BadRequest('Please fill all fields');
     }
 }
+
+module.exports = createUser;
