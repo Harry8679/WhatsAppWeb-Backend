@@ -18,6 +18,11 @@ const createUser = async(userData) => {
     if (status) {
         throw createHttpError.BadRequest('Please make sure your status is less than 64 characters long.');
     }
+
+    // Check if email address is valid
+    if (!validator.isEmail(email)) {
+        throw createHttpError.BadRequest('Please make sure to provide a valid email address');
+    };
 }
 
 module.exports = createUser;
