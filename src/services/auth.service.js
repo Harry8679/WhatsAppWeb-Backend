@@ -52,4 +52,6 @@ const createUser = async(userData) => {
     return user;
 }
 
-module.exports = createUser;
+const signUser = async (email, password) => {}
+
+module.exports = { createUser, signUser };
