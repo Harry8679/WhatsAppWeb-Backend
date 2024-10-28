@@ -13,6 +13,14 @@ const register = async (req, res, next) => {
         const access_token = await generateToken({ userId: newUser._id}, '1d', process.env.ACCESS_TOKEN_SECRET);
         const refresh_token = await generateToken({ userId: newUser._id}, '30d', process.env.REFRESH_TOKEN_SECRET);
 
+        res.cookie('refreshToken', refresh_token, {
+            httpOnly: true,
+            path: '/api/v1/auth/refreshToken',
+            maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+        });
+
+        console.table({ access_token, refresh_token });
+
         res.status(201).json({ 
             message: 'Register Success.',
             access_token,
