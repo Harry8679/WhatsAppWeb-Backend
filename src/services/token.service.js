@@ -1,5 +1,3 @@
-// const { sign } = require("../utils/token.util");
-
 const sign = require("../utils/token.util");
 
 const generateToken = async (payload, expiresIn, secret) => {

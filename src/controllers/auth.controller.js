@@ -1,14 +1,11 @@
 const createUser = require("../services/auth.service");
 const dotenv = require('dotenv');
-// const generateToken = require("../services/token.service");
 const { generateToken } = require("../services/token.service");
-// const { generateToken } = require("../services/token.service");
 dotenv.config();
 
 const register = async (req, res, next) => {
     try {
         const { name, email, picture, status, password } = req.body;
-        // console.log(name, email, picture, status, password);
         const newUser = await createUser({ name, email, picture, status, password });
 
         const access_token = await generateToken({ userId: newUser._id}, '1d', process.env.ACCESS_TOKEN_SECRET);
