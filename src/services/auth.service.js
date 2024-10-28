@@ -1,5 +1,6 @@
 const createHttpError  = require('http-errors');
 const validator = require('validator');
+const UserModel = require('../models/user.model');
 
 const createUser = async(userData) => {
     const { name, email, picture, status, password } = userData;
@@ -23,6 +24,12 @@ const createUser = async(userData) => {
     if (!validator.isEmail(email)) {
         throw createHttpError.BadRequest('Please make sure to provide a valid email address');
     };
+
+    // Check if user already exists
+    const checkDb = await UserModel.findOne({ email });
+    if (checkDb) {
+        throw createHttpError.Conflict('Please try again with a different email address, this email already exists.');
+    }
 }
 
 module.exports = createUser;
