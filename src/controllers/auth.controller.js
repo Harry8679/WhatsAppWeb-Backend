@@ -1,5 +1,6 @@
 const createUser = require("../services/auth.service");
 const dotenv = require('dotenv');
+const { generateToken } = require("../services/token.service");
 dotenv.config();
 
 const register = async (req, res, next) => {
