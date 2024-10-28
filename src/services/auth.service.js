@@ -38,6 +38,9 @@ const createUser = async(userData) => {
         throw createHttpError.BadRequest('Please make sure your password is between 6 and 128 characters long.');
     }
 
+    // Hash password --> to be done in the user model
+
+    // a
     const user = await new UserModel({
         name,
         email,
