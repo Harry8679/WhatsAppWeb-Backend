@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const logger = require('../config/logger.config');
 
-export const sign = async (payload, expiresIn, secret) => {
+const sign = async (payload, expiresIn, secret) => {
     return new Promise((resolve, reject) => {
         jwt.sign(payload, secret, { expiresIn: expiresIn }, (error, token) => {
             if (error) {
@@ -13,3 +13,5 @@ export const sign = async (payload, expiresIn, secret) => {
         });
     });
 };
+
+module.exports = sign;

@@ -1,6 +1,10 @@
-import { sign } from "../utils/token.util";
+// const { sign } = require("../utils/token.util");
 
-export const generateToken = async (payload, expiresIn, secret) => {
+const sign = require("../utils/token.util");
+
+const generateToken = async (payload, expiresIn, secret) => {
     let token = await sign(payload, expiresIn, secret);
     return token;
 };
+
+module.exports = generateToken;
