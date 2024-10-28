@@ -5,6 +5,4 @@ const generateToken = async (payload, expiresIn, secret) => {
     return token;
 };
 
-// const signUser = async (email, password) => {}
-
 module.exports = { generateToken };
