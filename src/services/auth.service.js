@@ -1,6 +1,8 @@
 const createHttpError  = require('http-errors');
 const validator = require('validator');
 const UserModel = require('../models/user.model');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const createUser = async(userData) => {
     const { name, email, picture, status, password } = userData;
@@ -35,6 +37,16 @@ const createUser = async(userData) => {
     if (!validator.isLength(password, { min:6, max: 128 })) {
         throw createHttpError.BadRequest('Please make sure your password is between 6 and 128 characters long.');
     }
+
+    const user = await new UserModel({
+        name,
+        email,
+        picture: picture || process.env.DEFAULT_PICTURE,
+        status: status || process.env.DEFAULT_STATUS,
+        password
+    }).save();
+
+    return user;
 }
 
 module.exports = createUser;
