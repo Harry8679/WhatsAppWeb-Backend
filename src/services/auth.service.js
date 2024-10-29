@@ -1,6 +1,7 @@
 const createHttpError  = require('http-errors');
 const validator = require('validator');
 const UserModel = require('../models/user.model');
+const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -58,7 +59,8 @@ const signUser = async (email, password) => {
     // check if user exists
     if (!user) throw createHttpError.NotFound('Invalid credentials.');
 
-    
+    // Compare passwords
+    let passwordMatches = await bcrypt.compare(password, user.password);
 }
 
 module.exports = { createUser, signUser };
