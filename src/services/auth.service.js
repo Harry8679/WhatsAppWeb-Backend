@@ -61,6 +61,10 @@ const signUser = async (email, password) => {
 
     // Compare passwords
     let passwordMatches = await bcrypt.compare(password, user.password);
+
+    if (!passwordMatches) throw createHttpError.NotFound('Invalid credentials');
+
+    return user;
 }
 
 module.exports = { createUser, signUser };
