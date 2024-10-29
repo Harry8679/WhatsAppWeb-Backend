@@ -1,6 +1,8 @@
 const { createUser, signUser } = require("../services/auth.service");
 const dotenv = require('dotenv');
-const { generateToken } = require("../services/token.service");
+const { generateToken, verifyToken } = require("../services/token.service");
+const createHttpError = require("http-errors");
+const { findUser } = require("../services/user.service");
 dotenv.config();
 
 const register = async (req, res, next) => {
@@ -73,7 +75,23 @@ const logout = async (req, res, next) => {
 };
 
 const refreshToken = async (req, res, next) => {
-    try {} catch (error) {
+    try {
+        const refresh_token = req.cookies.refreshtoken;
+        if (!refresh_token) throw createHttpError.Unauthorized('Please Login.');
+        const check = await verifyToken(refresh_token, process.env.REFRESH_TOKEN_SECRET);
+        // const user = await findUser(check.id);
+        const user = await findUser(check.userId);
+        const access_token = await generateToken({ userId: user._id }, '1d', process.env.ACCESS_TOKEN_SECRET);
+        // res.json(check);
+        res.json({
+            access_token,
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            picture: user.picture,
+            status: user.status,
+        })
+    } catch (error) {
         next(error);
     }
 };
