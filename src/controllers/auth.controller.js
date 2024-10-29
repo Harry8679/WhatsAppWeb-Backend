@@ -64,7 +64,10 @@ const login = async (req, res, next) => {
 };
 
 const logout = async (req, res, next) => {
-    try {} catch (error) {
+    try {
+        res.clearCookie('refreshtoken', { path: '/api/v1/auth/refreshtoken' });
+        res.json({ message: 'Logged out !' });
+    } catch (error) {
         next(error);
     }
 };
