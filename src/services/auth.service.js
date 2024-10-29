@@ -52,6 +52,13 @@ const createUser = async(userData) => {
     return user;
 }
 
-const signUser = async (email, password) => {}
+const signUser = async (email, password) => {
+    const user = await UserModel.findOne({ email: email.toLowerCase() }).lean();
+
+    // check if user exists
+    if (!user) throw createHttpError.NotFound('Invalid credentials.');
+
+    
+}
 
 module.exports = { createUser, signUser };
