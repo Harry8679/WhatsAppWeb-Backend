@@ -39,7 +39,25 @@ const login = async (req, res, next) => {
     try {
         const { email, password } = req.body;
         const user = await signUser(email, password);
-        res.json(user);
+        // res.json(user);
+        const access_token = await generateToken({ userId: user._id }, '1d', process.env.ACCESS_TOKEN_SECRET);
+        const refresh_token = await generateToken({ userId: user._id }, '30d', process.env.REFRESH_TOKEN_SECRET);
+
+        res.cookie('refreshtoken', refresh_token, {
+            httpOnly: true,
+            path: '/api/v1/auth/refreshtoken',
+            max: 30 * 24 * 60 * 60 * 1000, // 30 days
+        });
+
+        res.json({
+            message: 'Login Success',
+            access_token,
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            picture: user.picture,
+            status: user.status,
+        })
     } catch (error) {
         next(error);
     }
