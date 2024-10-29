@@ -1,4 +1,4 @@
-const { createUser } = require("../services/auth.service");
+const { createUser, signUser } = require("../services/auth.service");
 const dotenv = require('dotenv');
 const { generateToken } = require("../services/token.service");
 dotenv.config();
@@ -38,7 +38,8 @@ const register = async (req, res, next) => {
 const login = async (req, res, next) => {
     try {
         const { email, password } = req.body;
-        const user = signUser(email, password);
+        const user = await signUser(email, password);
+        res.json(user);
     } catch (error) {
         next(error);
     }
