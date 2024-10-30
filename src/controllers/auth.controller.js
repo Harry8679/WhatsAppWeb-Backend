@@ -84,12 +84,12 @@ const refreshToken = async (req, res, next) => {
         const access_token = await generateToken({ userId: user._id }, '1d', process.env.ACCESS_TOKEN_SECRET);
         // res.json(check);
         res.json({
-            access_token,
             _id: user._id,
             name: user.name,
             email: user.email,
             picture: user.picture,
             status: user.status,
+            access_token,
         })
     } catch (error) {
         next(error);
