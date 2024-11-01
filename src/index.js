@@ -4,6 +4,7 @@ const logger = require('./config/logger.config');
 const mongoose = require('mongoose');
 const http = require('http');
 const socketIo = require('socket.io');
+const cors = require('cors');
 
 dotenv.config();
 
@@ -11,6 +12,13 @@ dotenv.config();
 const { MONGODB_URI } = process.env;
 const port = process.env.PORT || 8081;
 console.log(process.env.NODE_ENV);
+
+// CORS middleware
+app.use(cors({
+    origin: 'http://localhost:3040',  // Mettez ici le port correct pour votre front-end
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+}));
 
 // Exit on MongoDB errors
 mongoose.connection.on('error', (err) => {
@@ -28,7 +36,13 @@ mongoose.connect(MONGODB_URI, {}).then(() => logger.info('Connected to MongoDB .
 
 // Create HTTP server and initialize Socket.IO
 const server = http.createServer(app);
-const io = socketIo(server);
+const io = socketIo(server, {
+    cors: {
+        origin: 'http://localhost:3040',  // Mettez ici le port correct pour votre front-end
+        methods: ['GET', 'POST'],
+        credentials: true,
+    }
+});
 
 // Configure Socket.IO connection event
 io.on('connection', (socket) => {
