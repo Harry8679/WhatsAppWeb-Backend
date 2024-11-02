@@ -1,6 +1,6 @@
 const createHttpError = require('http-errors');
 const logger = require('../config/logger.config');
-const { doesConversationExist, createConversation, populateConversation } = require('../services/conversation.service');
+const { doesConversationExist, createConversation, populateConversation, getUserConversations } = require('../services/conversation.service');
 const { findUser } = require('../services/user.service');
 
 const create_open_conversation = async (req, res, next) => {
@@ -35,7 +35,13 @@ const create_open_conversation = async (req, res, next) => {
 };
 
 const getConversations = async (req, res, next) => {
-    res.send('Get Conversation');
+    try {
+        const user_id = req.user.userId;
+        const conversations = await getUserConversations(user_id);
+        res.status(200).json(conversations);
+    } catch(error) {
+        next(error);
+    };
 };
 
 module.exports = { create_open_conversation, getConversations };
