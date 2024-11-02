@@ -7,8 +7,8 @@ const doesConversationExist = async (sender_id, receiver_id) => {
     let convos = await ConversationModel.find({
         isGroup: false,
         $and: [
-            { users: { $elemMatch: { $req: sender_id } } },
-            { users: { $elemMatch: { $req: receiver_id } } },
+            { users: { $elemMatch: { $eq: sender_id } } },
+            { users: { $elemMatch: { $eq: receiver_id } } },
         ],
     })
     .populate('users', '-passwords')
