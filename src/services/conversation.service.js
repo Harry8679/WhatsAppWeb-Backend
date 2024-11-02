@@ -24,3 +24,11 @@ export const doesConversationExist = async (sender_id, receiver_id) => {
 
     return convos[0];
 };
+
+export const createConversation = async (data) => {
+    const newConvo = await ConversationModel.create(data);
+    if (!newConvo) {
+        throw createHttpError.BadRequest('Oops...Something went wrong !');
+    }
+    return newConvo;
+}
