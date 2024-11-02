@@ -3,7 +3,7 @@ const ConversationModel = require("../models/conversation.model");
 const UserModel = require('../models/user.model');
 
 
-export const doesConversationExist = async (sender_id, receiver_id) => {
+const doesConversationExist = async (sender_id, receiver_id) => {
     let convos = await ConversationModel.find({
         isGroup: false,
         $and: [
@@ -25,10 +25,12 @@ export const doesConversationExist = async (sender_id, receiver_id) => {
     return convos[0];
 };
 
-export const createConversation = async (data) => {
+const createConversation = async (data) => {
     const newConvo = await ConversationModel.create(data);
     if (!newConvo) {
         throw createHttpError.BadRequest('Oops...Something went wrong !');
     }
     return newConvo;
 }
+
+module.exports = { doesConversationExist, createConversation };
