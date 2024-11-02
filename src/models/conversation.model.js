@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-// const { collection } = require('./user.model');
 const { ObjectId } = mongoose.Schema.Types;
 
 const conversationSchema = mongoose.Schema({
