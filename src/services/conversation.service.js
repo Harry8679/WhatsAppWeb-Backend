@@ -33,4 +33,14 @@ const createConversation = async (data) => {
     return newConvo;
 }
 
-module.exports = { doesConversationExist, createConversation };
+const populateConversation = async(id, fieldToPopulate, fieldsToRemove) => {
+    const populatedConvo = await ConversationModel.findOne({ _id: id}).populate(fieldToPopulate, fieldsToRemove);
+
+    if (!populatedConvo) {
+        throw createHttpError.BadRequest('Oops...Something went wrong !');
+    }
+
+    return populatedConvo;
+}
+
+module.exports = { doesConversationExist, createConversation, populateConversation };
