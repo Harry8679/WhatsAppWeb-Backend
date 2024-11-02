@@ -27,7 +27,7 @@ const conversationSchema = mongoose.Schema({
         ref: 'UserModel',
     }
 }, {
-    collection: conversions,
+    collection: 'conversions',
     timestamps: true,
 });
 
