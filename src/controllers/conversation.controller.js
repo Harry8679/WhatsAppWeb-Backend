@@ -34,4 +34,8 @@ const create_open_conversation = async (req, res, next) => {
     };
 };
 
-module.exports = { create_open_conversation };
+const getConversations = async (req, res, next) => {
+    res.send('Get Conversation');
+};
+
+module.exports = { create_open_conversation, getConversations };
