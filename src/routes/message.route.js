@@ -7,3 +7,5 @@ const router = express.Router();
 
 router.route('/').post(trimRequest.all, authMiddleware, sendMessage);
 router.route('/').get(trimRequest.all, authMiddleware, getMessage);
+
+module.exports = router;
