@@ -1,6 +1,6 @@
 const createHttpError = require('http-errors');
 const logger = require('../config/logger.config');
-const { doesConversationExist } = require('../services/conversation.service');
+const { doesConversationExist, createConversation } = require('../services/conversation.service');
 const { findUser } = require('../services/user.service');
 
 const create_open_conversation = async (req, res, next) => {
@@ -24,6 +24,8 @@ const create_open_conversation = async (req, res, next) => {
                 isGroup: false,
                 users: [sender_id, receiver_id]
             };
+            const newConvo = await createConversation(convoData);
+            res.json(newConvo);
         }
     } catch(error) {
         next(error);
