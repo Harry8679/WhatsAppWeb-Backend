@@ -1,6 +1,6 @@
 const logger = require('../config/logger.config');
 // const { populate } = require('../models/user.model');
-const { createMessage, populatedMessage, updateLatestMessage } = require('../services/message.service');
+const { createMessage, populatedMessage, updateLatestMessage, getConvoMessages } = require('../services/message.service');
 
 const sendMessage = async (req, res, next) => {
     try {
@@ -45,7 +45,11 @@ const getMessage = async (req, res, next) => {
             logger.error('Please add a conversation id in params');
             res.sendStatus(400);
         }
-    } catch (error) {};
+        const messages = await getConvoMessages(convo_id);
+        res.json(messages);
+    } catch (error) {
+        next(error);
+    };
 };
 
 module.exports = { sendMessage, getMessage };
