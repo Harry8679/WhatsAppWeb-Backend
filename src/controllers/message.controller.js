@@ -39,7 +39,13 @@ const sendMessage = async (req, res, next) => {
 
 
 const getMessage = async (req, res, next) => {
-    res.send('Get Message');
+    try {
+        const convo_id = req.params.convo_id;
+        if (!convo_id) {
+            logger.error('Please add a conversation id in params');
+            res.sendStatus(400);
+        }
+    } catch (error) {};
 };
 
 module.exports = { sendMessage, getMessage };
