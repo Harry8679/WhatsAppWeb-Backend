@@ -5,6 +5,5 @@ const { searchUsers } = require('../controllers/user.controller');
 const router = express.Router();
 
 router.route('/').get(trimRequest.all, authMiddleware, searchUsers);
-// router.route('/').get(searchUsers);
 
 module.exports = router;
