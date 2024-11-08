@@ -1,5 +1,7 @@
 const searchUsers = async (req, res, next) => {
-    try {} catch (error) {}
+    try {
+        res.send('User Controller');
+    } catch (error) {}
 }
 
 module.exports = { searchUsers };
