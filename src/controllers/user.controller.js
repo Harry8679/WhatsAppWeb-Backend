@@ -1,6 +1,6 @@
 const searchUsers = async (req, res, next) => {
     try {
-        res.send('User Controller');
+        res.send(req.query);
     } catch (error) {}
 }
 
