@@ -9,7 +9,10 @@ const findUser = async (userId) => {
 
 const searchUser = async(keyword) => {
     const users = await UserModel.find({
-        name: {$regex: keyword, $options: 'i'}
+        $or : [
+            { name: {$regex: keyword, $options: 'i'} },
+            { email: {$regex: keyword, $options: 'i'} },
+        ]
     });
     return users;
 };
