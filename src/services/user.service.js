@@ -7,4 +7,11 @@ const findUser = async (userId) => {
     return user;
 }
 
-module.exports = { findUser };
+const searchUser = async(keyword) => {
+    const users = await UserModel.find({
+        name: {$regex: keyword, $options: 'i'}
+    });
+    return users;
+};
+
+module.exports = { findUser, searchUser };

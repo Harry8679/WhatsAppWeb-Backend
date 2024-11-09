@@ -1,5 +1,6 @@
 const createHttpError = require("http-errors");
 const logger = require("../config/logger.config");
+const { searchUser : searchUsersService } = require("../services/user.service");
 
 const searchUsers = async (req, res, next) => {
     try {
@@ -8,6 +9,8 @@ const searchUsers = async (req, res, next) => {
             logger.error('Please add a search query first.');
             throw createHttpError.BadRequest('Oops...Something went wrong.');
         }
+        const users = await searchUsersService(keyword);
+        res.status(200).json(users);
     } catch (error) {
         next(error);
     }
